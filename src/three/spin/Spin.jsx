@@ -46,7 +46,7 @@ function init(reactFather) {
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    document.getElementById('canvas-3d').appendChild(renderer.domElement);
 
     //Loading Model
 
