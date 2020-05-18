@@ -1,0 +1,15 @@
+.navigation ul{
+    list-style: none;
+    text-align: center;
+}
+
+.navigation li{
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.navigation a:link, .navigation a:visited{
+    color: rgb(0, 81, 255);
+    font-size: 2rem;
+
+}
