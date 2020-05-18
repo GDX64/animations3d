@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/animations3d/static/css/main.1119e6f6.chunk.css",
+    "main.js": "/animations3d/static/js/main.cc22facf.chunk.js",
+    "main.js.map": "/animations3d/static/js/main.cc22facf.chunk.js.map",
+    "runtime-main.js": "/animations3d/static/js/runtime-main.c3f890a4.js",
+    "runtime-main.js.map": "/animations3d/static/js/runtime-main.c3f890a4.js.map",
+    "static/js/2.322c811a.chunk.js": "/animations3d/static/js/2.322c811a.chunk.js",
+    "static/js/2.322c811a.chunk.js.map": "/animations3d/static/js/2.322c811a.chunk.js.map",
+    "index.html": "/animations3d/index.html",
+    "precache-manifest.c85950cdfcdd1425ed788328bca0e1c6.js": "/animations3d/precache-manifest.c85950cdfcdd1425ed788328bca0e1c6.js",
+    "service-worker.js": "/animations3d/service-worker.js",
+    "static/css/main.1119e6f6.chunk.css.map": "/animations3d/static/css/main.1119e6f6.chunk.css.map",
+    "static/js/2.322c811a.chunk.js.LICENSE.txt": "/animations3d/static/js/2.322c811a.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/animations3d/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c3f890a4.js",
+    "static/js/2.322c811a.chunk.js",
+    "static/css/main.1119e6f6.chunk.css",
+    "static/js/main.cc22facf.chunk.js"
+  ]
+}
