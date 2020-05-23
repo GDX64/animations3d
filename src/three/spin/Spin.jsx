@@ -9,7 +9,8 @@ import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import Loading from '../../utilities/loading/Loading';
 
 var camera, scene, renderer, controls, mixer, composer;
-let mesh, light, sphere;
+let light;
+let running = false;
 
 var params = {
     exposure: 1,
@@ -91,7 +92,7 @@ function init(reactFather) {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    if (running) requestAnimationFrame(animate);
     renderer.render(scene, camera);
     mixer.update(.01);
     composer.render();
@@ -137,12 +138,14 @@ class Spin extends Component {
 
     componentDidMount() {
         console.log('Moutend');
+        running = true;
         init(this);
     }
 
     componentWillUnmount() {
         document.getElementsByClassName("dg main")[0].remove();
         console.log("removing");
+        running = false;
     }
 
     render() {

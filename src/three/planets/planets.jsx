@@ -8,13 +8,14 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GUI, gui } from 'three/examples/jsm/libs/dat.gui.module';
 import { Vector3 } from "three";
-import cameraConfig from './cameraConfig'
 import Loading from "../../utilities/loading/Loading";
 
 var camera, scene, renderer, controls, mixer, composer;
 let mesh, light, sphere;
 //my objects
 let sun, mars, earth, satelite;
+
+let running = false; //variable to control the animation loop
 
 //my vars
 let sateliteSpeed = 0.003;
@@ -35,12 +36,6 @@ function init(reactFather) {
         0.01,
         10
     );
-    const { x: px, y: py, z: pz } = cameraConfig.position;
-    const { x, y, z } = cameraConfig.euler;
-    camera.position.set(px, py, pz);
-    camera.setRotationFromEuler(new THREE.Euler(x, y, z, 'XYZ'));
-    //camera.matrix.fromArray(cameraMatrix);
-    //camera.matrix.decompose(camera.position, camera.quaternion, camera.scale);
 
     //creating scene
     scene = new THREE.Scene();
@@ -117,8 +112,9 @@ function init(reactFather) {
     })
 
     //OrbitControls
-    //controls = new OrbitControls(camera, renderer.domElement);
-    //controls.enableZoom = true;
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = true;
+    camera.position.z = 5;
 
     //Bloom
     var bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
@@ -141,7 +137,7 @@ function init(reactFather) {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    if (running === true) requestAnimationFrame(animate);
     //renderer.render(scene, camera);
 
     earth.rotation.y += .001;
@@ -194,13 +190,13 @@ function initGUI(bloomPass) {
 
     });
 
-    gui.add({
-        hello: () => {
-            console.log(camera)
-            const cameraState = JSON.stringify(camera.matrix.toArray());
-            console.log(cameraState);
-        }
-    }, 'hello');
+    // gui.add({
+    //     hello: () => {
+    //         console.log(camera)
+    //         const cameraState = JSON.stringify(camera.matrix.toArray());
+    //         console.log(cameraState);
+    //     }
+    // }, 'hello');
 
 }
 
@@ -213,11 +209,13 @@ class Planets extends Component {
     componentDidMount() {
         console.log('Moutend');
         init(this);
+        running = true;
     }
 
     componentWillUnmount() {
         document.getElementsByClassName("dg main")[0].remove();
         console.log("removing");
+        running = false;
     }
 
     render() {

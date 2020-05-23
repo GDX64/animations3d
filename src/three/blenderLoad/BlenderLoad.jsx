@@ -8,7 +8,10 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 
 var camera, scene, renderer, controls, mixer, composer;
-let mesh, light, sphere;
+let light
+let modelToLoad = 'rings2.glb'
+
+let animated = false
 
 var params = {
     exposure: 1,
@@ -22,9 +25,9 @@ function init() {
         70,
         window.innerWidth / window.innerHeight,
         0.01,
-        10
+        100
     );
-    camera.position.z = 1;
+    camera.position.z = 12;
 
     scene = new THREE.Scene();
 
@@ -37,10 +40,10 @@ function init() {
     //Adding lights
 
     light = new THREE.PointLight(0xffffff, 1, 100);
-    light.position.set(0, 0, 0);
+    light.position.set(15, 10, 0);
     scene.add(light);
 
-    let aLight = new THREE.AmbientLight(0xffffff, .5);
+    let aLight = new THREE.AmbientLight(0xffffff, .1);
     scene.add(aLight);
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -51,15 +54,17 @@ function init() {
 
     var loader = new GLTFLoader();
 
-    loader.load('spin.glb', function (gltf) {
+    loader.load(modelToLoad, function (gltf) {
         console.log(gltf);
         scene.add(gltf.scene);
-        var model = gltf.scene;
-        mixer = new THREE.AnimationMixer(model);
-        var clips = gltf.animations;
-        clips.forEach(function (clip) {
-            mixer.clipAction(clip).play();
-        });
+        if (animated) {
+            var model = gltf.scene;
+            mixer = new THREE.AnimationMixer(model);
+            var clips = gltf.animations;
+            clips.forEach(function (clip) {
+                mixer.clipAction(clip).play();
+            });
+        }
         animate();
 
     }, undefined, function (error) {
@@ -90,7 +95,7 @@ function init() {
 function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
-    mixer.update(.01);
+    if (animated) mixer.update(.01);
     composer.render();
 }
 

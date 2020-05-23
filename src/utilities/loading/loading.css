@@ -15,30 +15,30 @@
 
 .load-container span{
     animation-name: loading-move;
-    animation-duration: 3s;
+    animation-duration: 4s;
     animation-iteration-count: infinite;
     font-size: 1.3rem;
     
 }
 
 @keyframes loading-move{
-    0%{
-        transform: scale(1);
-    }
-    50%{
-        letter-spacing: 4rem;
+    0%{ transform: translateX(0);}
+    30%{
+        transform: translateX(0);
+        letter-spacing: normal;
+        opacity: 1;
     }
     70%{
         transform: translateX(80rem);
         opacity: 0;
-    }
+        letter-spacing: 6rem;
+    }   
     71%{
         transform: translateX(0);
         letter-spacing: normal;
     }
-    100%{
-        transform: scale(1);
-        opacity: 1;
+    100%{   
+        opacity: 1; 
     }
 
 }

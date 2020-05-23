@@ -1,7 +1,7 @@
 import React from 'react'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as THREE from "three";
-import { Vector3 } from 'three';
+//import { Vector3 } from 'three';
 //import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 //import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 //import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -12,11 +12,11 @@ import './cubes.css'
 const cubesRow = 30;
 const cubesCol = 30;
 let colorIntensity = 1;
-const cubesNumber = cubesCol * cubesRow;
 let wavesNumber = 2;
 var camera, scene, renderer, controls;
 let geometry, material;
 let cubes;
+let running = false;
 
 var params = {
     wavesNumber,
@@ -37,9 +37,6 @@ function init() {
     geometry = new THREE.BoxGeometry(.9, .9, .9);
     var material1 = new THREE.MeshPhongMaterial({ color: 0xfca503, shininess: 50, reflectivity: 1, emissive: 0xffff00 });
 
-    var cube = new THREE.Mesh(geometry, material1);
-    //scene.add(cube);
-
     cubes = [];
 
     for (let row = 0; row < cubesRow; row++) {
@@ -53,9 +50,6 @@ function init() {
             cubes[row].push(nCube);
         }
     }
-
-
-    console.log(cubes);
 
 
     //Plane
@@ -91,7 +85,7 @@ function init() {
 let theta = 0;
 
 function animate() {
-    requestAnimationFrame(animate);
+    if (running) requestAnimationFrame(animate);
 
     animateCubes(cubes);
     controls.update();
@@ -109,7 +103,6 @@ function animateCubes(cubes) {
             cube.material.setValues({ emissiveIntensity: (py + 4) / 8 * colorIntensity })
         })
     })
-    console.log(positions);
 
     theta += .01;
 }
@@ -138,9 +131,11 @@ class Cubes extends React.Component {
     componentWillUnmount() {
         console.log('Unmmonting');
         document.getElementsByClassName("dg main")[0].remove()
+        running = false;
     }
 
     componentDidMount() {
+        running = true;
         init();
         animate();
     }

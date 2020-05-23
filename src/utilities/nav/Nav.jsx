@@ -11,8 +11,9 @@ function Nav() {
             <li><Link to="/planets">Planets</Link></li>
             <li><Link to="/cubes">Cubes</Link></li>
             <li><Link to="/spin">Spin</Link></li>
+            <li><Link to="/ring">Ring</Link></li>
+            <li><Link to="/simple-cubes">Simple Cubes</Link></li>
         </ul>
-
     </div>)
 
 }

@@ -8,9 +8,9 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 import Loading from '../../utilities/loading/Loading'
 
-var composer;
+var composer, running;
 var camera, scene, renderer, controls;
-let geometry, material, mesh, sphere1, sphere2;
+let geometry, material, sphere1, sphere2;
 const Ts = .0002;
 
 var params = {
@@ -86,7 +86,7 @@ function init(reactFather) {
 
     //OrbitControls
     controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableZoom = false;
+    //controls.enableZoom = false;
 
     animate();
     reactFather.setState({ ready: true })
@@ -94,7 +94,7 @@ function init(reactFather) {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    if (running) requestAnimationFrame(animate);
     gSimulation(sphere1, sphere2);
     gSimulation(sphere2, sphere1);
 
@@ -165,6 +165,7 @@ class Gravity extends React.Component {
 
     componentDidMount() {
         console.log('Moutend');
+        running = true;
         init(this);
     }
 
@@ -172,6 +173,7 @@ class Gravity extends React.Component {
         const htmlElement = document.getElementsByClassName("dg main")[0]
         if (htmlElement) htmlElement.remove();
         console.log("removing");
+        running = false
     }
 
     render() {
